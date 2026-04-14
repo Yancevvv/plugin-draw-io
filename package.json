@@ -1,0 +1,36 @@
+{
+  "name": "plugin-draw-io",
+  "version": "1.0.0",
+  "description": "Плагин для draw io",
+  "main": "./src/main.js",
+  "dependencies": {
+    "blockly": "7.20211209.0",
+    "fast-xml-parser": "^5.5.12",
+    "minimatch": "^3.1.2",
+    "path-browserify": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "7.1.0",
+    "glob": "^7.2.3",
+    "script-loader": "^0.7.2",
+    "vitest": "^4.1.4",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1"
+  },
+  "scripts": {
+    "buildplugin": "webpack --config webpack.plugin.js",
+    "buildchromeplugin": "webpack --config webpack.chrome.js",
+    "eslint": "eslint",
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CompPrehension/plugin-draw-io.git"
+  },
+  "author": "Strupervlg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CompPrehension/plugin-draw-io/issues"
+  },
+  "homepage": "https://github.com/CompPrehension/plugin-draw-io#readme"
+}
