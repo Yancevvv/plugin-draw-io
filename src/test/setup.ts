@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
 
 // Мок для глобальных объектов
-global.window = global.window || {} as any;
+(globalThis as any).window = globalThis.window || {} as any;
 
 // Мок для draw.io API
 (window as any).mxGraph = vi.fn();
@@ -12,7 +12,7 @@ global.window = global.window || {} as any;
 };
 
 // Мок для localStorage
-Object.defineProperty(global, 'localStorage', {
+Object.defineProperty(globalThis, 'localStorage', {
   value: {
     getItem: vi.fn(),
     setItem: vi.fn(),
