@@ -1,4 +1,4 @@
-import { EditorUi, EnumItem, ClassItem, PropertyItem, RelationshipItem } from './types.js';
+import { EditorUi, EnumItem, ClassItem, PropertyItem, RelationshipItem } from '../utils/types.js';
 import { getTextByLocale } from '../utils/locale.js';
 
 // Получение списка enum из словаря на полотне

@@ -4,7 +4,7 @@ import { toolbox } from '../utils/blocks.js';
 import { checkValidID, checkUniqueValues } from '../utils/utils.js';
 import { parser } from '../utils/parser.js';
 import * as Blockly from 'blockly';
-import { EditorUi, MxWindow, MXGraph, MXGraphModel, MXGeometry, MXCell, EnumItem, ClassItem, mxUtilsType, BlocklyType, ParserType } from './types.js';
+import { EditorUi, MxWindow, MXGraph, MXGraphModel, MXGeometry, MXCell, EnumItem, ClassItem, mxUtilsType, BlocklyType, ParserType } from '../utils/types.js';
 
 // ============ Глобальные объекты ============
 

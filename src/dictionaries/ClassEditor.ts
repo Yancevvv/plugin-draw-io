@@ -4,7 +4,7 @@ import { toolbox } from '../utils/blocks.js';
 import { parser } from '../utils/parser.js';
 import { checkAllInputsClass, addRowClass, generateStrValueForClasses } from './ClassConstructor.js';
 import * as Blockly from 'blockly';
-import { EditorUi, MxWindow, MXGraph, MXGraphModel, MXGeometry, MXCell, EnumItem, ClassItem, mxUtilsType, BlocklyType, ParserType, MXCellValue } from './types.js';
+import { EditorUi, MxWindow, MXGraph, MXGraphModel, MXGeometry, MXCell, EnumItem, ClassItem, mxUtilsType, BlocklyType, ParserType, MXCellValue } from '../utils/types.js';
 
 interface ClassEditorWindowInstance {
     window: MxWindow;

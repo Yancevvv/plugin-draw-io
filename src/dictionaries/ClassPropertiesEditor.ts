@@ -2,7 +2,7 @@ import { styleTable, styleBtn, styleDivBtn, styleSelect } from '../utils/style.j
 import { getTextByLocale } from '../utils/locale.js';
 import { getClasses } from './Utils.js';
 import { checkAllInputsProperty, generateStrValueForProperties, addRowProperty } from './ClassPropertiesConstructor.js';
-import { EditorUi, MxWindow, MXGraph, MXGraphModel, MXGeometry, MXCell, EnumItem, ClassItem, MXCellValue } from './types.js';
+import { EditorUi, MxWindow, MXGraph, MXGraphModel, MXGeometry, MXCell, EnumItem, ClassItem, MXCellValue } from '../utils/types.js';
 // Объявление глобальных типов для mxGraph
 declare const mxUtils: {
     button: (label: string, handler: (evt?: MouseEvent) => void) => HTMLButtonElement;

@@ -1,7 +1,7 @@
 import { styleTable, styleInput, styleBtn, styleDivBtn } from '../utils/style.js';
 import { getTextByLocale } from '../utils/locale.js';
 import { checkAllInputsEnum, generateStrValueForEnums, addRowEnum } from './EnumConstructor.js';
-import { EditorUi, MxWindow, MXGraph, MXGraphModel, MXGeometry, MXCell, EnumItem, ClassItem, MXCellValue } from './types.js';
+import { EditorUi, MxWindow, MXGraph, MXGraphModel, MXGeometry, MXCell, EnumItem, ClassItem, MXCellValue } from '../utils/types.js';
 
 interface EnumEditorWindowInstance {
     window: MxWindow;
