@@ -1,14 +1,180 @@
-//Файл с локализацией плагина
+// Файл с локализацией плагина
 
-export function getTextByLocale(type) {
-    if (mxClient.language == "ru") {
-        return RU_TEXT[type];
-    } else {
-        return EN_TEXT[type];
-    }
+// Интерфейс для текстов локализации
+export interface LocaleText {
+    // Разделы меню
+    menuItemDictionaryConstructors: string;
+    menuItemNodeConstructors: string;
+    menuItemExport: string;
+    menuItemEdit: string;
+    menuItemConverNode: string;
+
+    // Элементы меню
+    classesConstructor: string;
+    classPropertiesConstructor: string;
+    relationshipsConstructor: string;
+    enumConstructor: string;
+    startNodeConstructor: string;
+    TrueNodeCreate: string;
+    FalseNodeCreate: string;
+    LogicNodeCreate: string;
+    PredeterminingFactorsNodeCreate: string;
+    UncertaintyNodeCreate: string;
+    actionNodeConstructor: string;
+    cycleNodeConstructor: string;
+    whileNodeConstructor: string;
+    conditionNodeConstructor: string;
+    switchCaseNodeConstructor: string;
+    exportClass: string;
+    exportProperty: string;
+    exportRelationship: string;
+    exportEnum: string;
+    exportTree: string;
+    editValue: string;
+    editTextInNode: string;
+    editQuestionInfo: string;
+    convertStartNode: string;
+    convertTrueNode: string;
+    convertFalseNode: string;
+    convertLogicNode: string;
+    convertPredeterminingFactorsNode: string;
+    convertUncertaintyNode: string;
+    convertActionNode: string;
+    convertCycleNode: string;
+    convertConditionNode: string;
+    convertSwitchCaseNode: string;
+
+    // Текст окон (названия, кнопки) - Словари
+    TitleClassConstructorWindow: string;
+    TitleClassEditorWindow: string;
+    TitleClassPropertiesConstructorWindow: string;
+    TitleClassPropertiesEditorWindow: string;
+    TitleEnumConstructorWindow: string;
+    TitleEnumEditorWindow: string;
+    TitleRelationshipsConstructorWindow: string;
+    TitleRelationshipsEditorWindow: string;
+
+    // Узлы
+    TitleActionNodeConstructorWindow: string;
+    TitleActionNodeEditorWindow: string;
+    TitleBranchResultNodeConstructorWindow: string;
+    TitleBranchResultNodeEditorWindow: string;
+    TitleConditionNodeConstructorWindow: string;
+    TitleConditionNodeEditorWindow: string;
+    TitleCycleNodeConstructorWindow: string;
+    TitleCycleNodeEditorWindow: string;
+    TitleWhileNodeConstructorWindow: string;
+    TitleWhileNodeEditorWindow: string;
+    TitleEditTextInNodeWindow: string;
+    TitleEditValueInOutcomeWindow: string;
+    TitleLogicNodeConstructorWindow: string;
+    TitleLogicNodeEditorWindow: string;
+    TitlePredeterminingFactorsNodeConstructorWindow: string;
+    TitlePredeterminingFactorsNodeEditorWindow: string;
+    TitleEditQuestionInfoInNodeWindow: string;
+    TitleEditQuestionInfoInOutcomeWindow: string;
+    TitleStartConstructorWindow: string;
+    TitleStartEditorWindow: string;
+    TitleSwitchCaseNodeConstructorWindow: string;
+    TitleSwitchCaseNodeEditorWindow: string;
+
+    // Кнопки
+    Create: string;
+    Apply: string;
+    Delete: string;
+    AddClass: string;
+    OpenBlockly: string;
+    toСode: string;
+    AddPropertyClass: string;
+    AddEnum: string;
+    AddRelationship: string;
+    SwitchBlockly: string;
+    SwitchText: string;
+    Save: string;
+    Generate: string;
+    AddVariable: string;
+
+    // Текст в окне
+    ExpressionInNode: string;
+    HumanReadableText: string;
+    value: string;
+    type: string;
+    asNextStep: string;
+    descriptionQuestion: string;
+    questionQuestion: string;
+    endingCause: string;
+    descriptionOutcome: string;
+    nextStepQuestion: string;
+    nextStepExplanation: string;
+    textQuestion: string;
+    explanation: string;
+    nextStepQuestionOutcome: string;
+    nextStepBranchResult: string;
+    nextStepExplanationOutcome: string;
+
+    // Текста ошибок
+    nameIsMissing: string;
+    nameIsIncorrect: string;
+    extendClassIsIncorrect: string;
+    nonUniqueClassName: string;
+    ClassExists: string;
+    startValueIsMissing: string;
+    endValueIsMissing: string;
+    classesIsMissing: string;
+    nonUniquePropertyName: string;
+    PropertyExists: string;
+    valueIsMissing: string;
+    valueIsIncorrect: string;
+    nameRDFIsMissing: string;
+    nameRDFIsIncorrect: string;
+    nonUniqueEnumName: string;
+    EnumExists: string;
+    extendRelationshipIsIncorrect: string;
+    nameRelationshipsIsMissing: string;
+    nameRelationshipsIsIncorrect: string;
+    nonUniqueRelationshipName: string;
+    RelationshipExists: string;
+    ExpressionIsMissing: string;
+    NameVariableIsMissing: string;
+    NameVariableIsIncorrect: string;
+    TypeVariableIsMissing: string;
+    sourceNodeIsMissing: string;
+    EnumIsMissing: string;
+    HumanReadableTextIsMissing: string;
+    ValueOutcomeIsMissing: string;
+    ValueInOutcomeIsMissing: string;
+    invalidAssign: string;
+    InvalidType: string;
+    StartNodeOnlyOne: string;
+    typeOutcomeStartNodeIsMissing: string;
+    typeOutcomeCycleIsMissing: string;
+    bodyOnlyOne: string;
+    trueCycleOnlyOne: string;
+    falseCycleOnlyOne: string;
+    typeOutcomeLogicNodeIsMissing: string;
+    OutcomeLogicNodeOnlyTwo: string;
+    trueLogicNodeOnlyOne: string;
+    falseLogicNodeOnlyOne: string;
+    typeOutcomePredIsMissing: string;
+    predOutcomeIsMissing: string;
+    undeterminedOnlyOne: string;
+    valueInOutcomeIsMissing: string;
+    valueEnumIsMissing: string;
+    ClassInDictIsMissing: string;
+    TypesDontMatch: string;
+    OutcomesHasSameValues: string;
+    ResultOutcomeForPredNode: string;
+    moreBlocksInWorkspace: string;
+    propertyIsMissingInDict: string;
+    hasCycleInTree: string;
+    AssignInNode: string;
+    EmptyConnection: string;
+    StartNodeIsTarget: string;
+    TargetNodeIsMissing: string;
 }
 
-const RU_TEXT = {
+// Русская локализация
+const RU_TEXT: LocaleText = {
     //Разделы меню
     "menuItemDictionaryConstructors": "Конструкторы словарей",
     "menuItemNodeConstructors": "Конструкторы узлов",
@@ -180,7 +346,8 @@ const RU_TEXT = {
     "TargetNodeIsMissing": "Отсутствует конечный узел!",
 };
 
-const EN_TEXT = {
+// Английская локализация
+const EN_TEXT: LocaleText = {
     //Разделы меню
     "menuItemDictionaryConstructors": "Dictionary constructors",
     "menuItemNodeConstructors": "Node constructors",
@@ -351,3 +518,21 @@ const EN_TEXT = {
     "StartNodeIsTarget": "The starting node consists of a branch!",
     "TargetNodeIsMissing": "There is no target node!",
 };
+
+// Декларация глобальной переменной mxClient
+declare const mxClient: {
+    language: string;
+};
+
+/**
+ * Получение текста по ключу локализации
+ * @param type - ключ текста
+ * @returns локализованный текст
+ */
+export function getTextByLocale(type: keyof LocaleText): string {
+    if (typeof mxClient !== 'undefined' && mxClient.language === "ru") {
+        return RU_TEXT[type] || type;
+    } else {
+        return EN_TEXT[type] || type;
+    }
+}

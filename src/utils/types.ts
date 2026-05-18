@@ -43,6 +43,7 @@ export interface MxWindow {
     setResizable(enabled: boolean): void;
     setClosable(enabled: boolean): void;
     setVisible(visible: boolean): void;
+    content?: HTMLElement | null;
 }
 
 export interface EditorUi {

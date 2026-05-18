@@ -1,19 +1,23 @@
 import { parser, root } from '../utils/parser.js';
 import { toBlock } from '../utils/code_to_block.js';
 import * as Blockly from 'blockly';
+import { EnumItem, ClassItem, PropertyItem, RelationshipItem } from '../utils/types.js';
+
+// Тип для Blockly workspace
+type BlocklyWorkspace = ReturnType<typeof Blockly.inject>;
 
 /* 
   Функции для формирования CSV словарей для скачивания
 */
-export function exportEnums(jsonEnums) {
-    var result = "";
+export function exportEnums(jsonEnums: EnumItem[]): string {
+    let result = "";
     jsonEnums.forEach(enumItem => {
         result += enumItem.nameEnum + "|" + enumItem.values[0];
-        for (var i = 1; i < enumItem.values.length; i++) {
+        for (let i = 1; i < enumItem.values.length; i++) {
             result += ";" + enumItem.values[i];
         }
 
-        if (enumItem.isLinear == 'true') {
+        if (enumItem.isLinear === 'true') {
             result += "|TRUE|" + enumItem.nameRDF + "\n";
         } else {
             result += "|FALSE|" + enumItem.nameRDF + "\n";
@@ -22,8 +26,8 @@ export function exportEnums(jsonEnums) {
     return result;
 }
 
-export function exportClasses(jsonClasses, workspace) {
-    var result = "";
+export function exportClasses(jsonClasses: ClassItem[], workspace: BlocklyWorkspace): string {
+    let result = "";
     jsonClasses.forEach(classItem => {
         result += classItem.name + "|" + classItem.extend + "|";
         if (classItem.expression) {
@@ -34,27 +38,27 @@ export function exportClasses(jsonClasses, workspace) {
     return result;
 }
 
-export function exportProperties(jsonProperties) {
-    var result = "";
+export function exportProperties(jsonProperties: PropertyItem[]): string {
+    let result = "";
     jsonProperties.forEach(propertyItem => {
         result += propertyItem.name + "|";
 
-        if (propertyItem.type != "Integer" && propertyItem.type != "Double"
-            && propertyItem.type != "Boolean" && propertyItem.type != "String") {
+        if (propertyItem.type !== "Integer" && propertyItem.type !== "Double"
+            && propertyItem.type !== "Boolean" && propertyItem.type !== "String") {
             result += "ENUM" + "|" + propertyItem.type.slice(6) + "|";
         } else {
             result += propertyItem.type.toUpperCase() + "||";
         }
 
-        if (propertyItem.isStatic == 'true') {
+        if (propertyItem.isStatic === 'true') {
             result += "TRUE|" + propertyItem.classes[0];
-            for (var i = 1; i < propertyItem.classes.length; i++) {
+            for (let i = 1; i < propertyItem.classes.length; i++) {
                 result += ";" + propertyItem.classes[i];
             }
             result += "|";
         } else {
             result += "FALSE|" + propertyItem.classes[0];
-            for (var i = 1; i < propertyItem.classes.length; i++) {
+            for (let i = 1; i < propertyItem.classes.length; i++) {
                 result += ";" + propertyItem.classes[i];
             }
             result += "|";
@@ -65,17 +69,17 @@ export function exportProperties(jsonProperties) {
     return result;
 }
 
-export function exportRelastionships(jsonRelationships) {
-    var result = "";
+export function exportRelastionships(jsonRelationships: RelationshipItem[]): string {
+    let result = "";
     jsonRelationships.forEach(relationshipItem => {
         result += relationshipItem.name + "|" + relationshipItem.extend + "|"
             + relationshipItem.classes[0];
-        for (var i = 1; i < relationshipItem.classes.length; i++) {
+        for (let i = 1; i < relationshipItem.classes.length; i++) {
             result += ";" + relationshipItem.classes[i];
         }
 
-        result += "|" + relationshipItem.scale + "|" + relationshipItem.namesRels + "|";
-        if (relationshipItem.isBetween == "true") {
+        result += "|" + relationshipItem.scale + "|" + (relationshipItem.namesRels || '') + "|";
+        if (relationshipItem.isBetween === "true") {
             result += relationshipItem.type;
         }
         result += "\n";
@@ -83,37 +87,37 @@ export function exportRelastionships(jsonRelationships) {
     return result;
 }
 
-/** Подготовить xml узла для формирования дерева, которое будет скачаноAdd commentMore actions
-*/
-export function codeToXML(workspace, code) {
+/** Подготовить xml узла для формирования дерева, которое будет скачано */
+export function codeToXML(workspace: BlocklyWorkspace, code: string): string {
     workspace.clear();
     parser.parse(code); // Распарсить код (глобально) 
-    toBlock(root, workspace); // Перевести код в блоки Blockly
+    if (root) {
+        toBlock(root, workspace); // Перевести код в блоки Blockly
+    }
     return blockToXML(workspace);
 }
 
-/** Перевести блоки Blockly в XML для its.Reasoner (для одного узла дерева)Add commentMore actions
-*/
-function blockToXML(workspace) {
-    let xmlOutput = Blockly.Xml.workspaceToDom(workspace);
-    let xls = loadXML(xslTxt)
-    let d_ = new XSLTProcessor();
-    d_.importStylesheet(xls)
-    let lastXML = d_.transformToFragment(xmlOutput, document);
-    var s = new XMLSerializer();
-    var strXML = s.serializeToString(lastXML);
+/** Перевести блоки Blockly в XML для its.Reasoner (для одного узла дерева) */
+function blockToXML(workspace: BlocklyWorkspace): string {
+    const xmlOutput = Blockly.Xml.workspaceToDom(workspace);
+    const xls = loadXML(xslTxt);
+    const processor = new XSLTProcessor();
+    processor.importStylesheet(xls);
+    const lastXML = processor.transformToFragment(xmlOutput, document);
+    const serializer = new XMLSerializer();
+    const strXML = serializer.serializeToString(lastXML);
     return strXML.replace(/(?<=>)[\s]+(?=<)/g, ''); // Убрать лишние пробелы между тегами.
 }
 
-function loadXML(string) {
-    var oParser = new DOMParser();
-    return oParser.parseFromString(string, "application/xml");
+function loadXML(xmlString: string): Document {
+    const parser = new DOMParser();
+    return parser.parseFromString(xmlString, "application/xml");
 }
 
-/** Правила для преобразования XML Blockly в XML для its.Reasoner (фрашмент tree.xml).Add commentMore actions
+/** Правила для преобразования XML Blockly в XML для its.Reasoner (фрагмент tree.xml).
     XSL — см. ru.wikipedia.org/wiki/XSL.
 */
-const xslTxt = `<?xml version="1.0"?>
+const xslTxt: string = `<?xml version="1.0"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
     <xsl:output method="xml" indent="yes"/>
@@ -389,4 +393,4 @@ const xslTxt = `<?xml version="1.0"?>
         </Block>
     </xsl:template>
 
-</xsl:stylesheet>`
+</xsl:stylesheet>`;
